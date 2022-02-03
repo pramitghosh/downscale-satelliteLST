@@ -241,7 +241,7 @@ class DownscaledLST:
 
             if clear_sky_pxl_perc >= self.cloud_cover_threshold:
                 print(f"  Processing band {i}:")
-                normal_transformer = QuantileTransformer(len(y)//2, "normal", random_state=self.SEED).fit(X)
+                normal_transformer = QuantileTransformer(n_quantiles=len(y)//2, output_distribution="normal", random_state=self.SEED).fit(X)
                 model, metrics = self._BuildRegrModel(y, normal_transformer.transform(X))
                 R2 = metrics[0]
                 print(f"{f'    The R2 score of the ensemble model is: {R2:0.2f}':<50}", end="")
